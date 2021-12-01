@@ -30,6 +30,18 @@ where
     read_file_lines(file_given)
 }
 
+pub fn first_non_zero_duration(duration: Duration) -> String {
+    if duration.as_secs() != 0 {
+        format!("{}s", duration.as_secs())
+    } else if duration.as_millis() != 0 {
+        format!("{}ms", duration.as_millis())
+    } else if duration.as_micros() != 0 {
+        format!("{}μs", duration.as_micros())
+    } else {
+        format!("{}ns", duration.as_nanos())
+    }
+}
+
 pub const SECOND: u128 = 1000000000;
 pub const MINUTE: u128 = 60000000000;
 pub const HOUR: u128 = 3600000000000;
@@ -47,6 +59,17 @@ pub fn format_duration(duration: Duration) -> String {
     rtn.write_fmt(format_args!("{:02}.", running / SECOND)).unwrap();
     running %= SECOND;
 
-    rtn.write_fmt(format_args!("{:09}\n{}ns", running, duration.as_nanos())).unwrap();
+    let ns = duration.as_nanos();
+
+    rtn.write_fmt(format_args!("{:09}\n{}\n{}ns", running, first_non_zero_duration(duration), ns)).unwrap();
     rtn
+}
+
+pub fn get_debug_file<P>(dir: P, name: &str) -> Result<File>
+where
+    P: Into<PathBuf>
+{
+    let mut buf = dir.into();
+    buf.push(format!("{}.debug.txt", name));
+    File::create(buf)
 }

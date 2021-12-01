@@ -1,4 +1,4 @@
-use std::time::Instant;
+use std::{time::Instant};
 
 fn part_a() -> () {
     let input_result = lib::lines_from_arg_or_default("./day01/input.txt");
@@ -61,7 +61,11 @@ fn part_b() -> () {
                 total_measurements += 1;
 
                 if total_measurements >= 3 {
-                    let window_depth: i32 = window.iter().sum();
+                    let mut window_depth: i32 = 0;
+
+                    for v in window {
+                        window_depth += v;
+                    }
 
                     if prev_window != 0 && window_depth > prev_window {
                         window_increase_count += 1;
