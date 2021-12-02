@@ -1,6 +1,15 @@
-use std::{path::{Path, PathBuf}, fs::{File, canonicalize}, io::{BufReader, BufRead, Lines, Result}, time::Duration, fmt::Write};
+use std::{
+    path::{Path, PathBuf}, 
+    fs::{File, canonicalize}, 
+    io::{BufReader, BufRead, Lines, Result as IoResult}, 
+    time::Duration, 
+    fmt::Write,
+    error
+};
 
-pub fn read_file_lines<P>(path: P) -> Result<Lines<BufReader<File>>>
+pub type ResultBoxE<T> = Result<T, Box<dyn error::Error>>;
+
+pub fn read_file_lines<P>(path: P) -> IoResult<Lines<BufReader<File>>>
 where 
     P: AsRef<Path>
 {
@@ -10,7 +19,7 @@ where
     Ok(buf.lines())
 }
 
-pub fn lines_from_arg_or_default<P>(path: P) -> Result<Lines<BufReader<File>>>
+pub fn lines_from_arg_or_default<P>(path: P) -> IoResult<Lines<BufReader<File>>>
 where
     P: AsRef<Path>
 {
@@ -65,7 +74,7 @@ pub fn format_duration(duration: Duration) -> String {
     rtn
 }
 
-pub fn get_debug_file<P>(dir: P, name: &str) -> Result<File>
+pub fn get_debug_file<P>(dir: P, name: &str) -> IoResult<File>
 where
     P: Into<PathBuf>
 {
