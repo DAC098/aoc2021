@@ -15,7 +15,7 @@ fn part_a() -> lib::ResultBoxE<()> {
                 if let Ok(v) = value.parse() {
                     num = v;
                 } else {
-                    println!("failed to parse value to u64");
+                    println!("failed to parse value to u64. given: {}", value);
                     break;
                 }
 
@@ -30,12 +30,12 @@ fn part_a() -> lib::ResultBoxE<()> {
                         depth += num;
                     },
                     _ => {
-                        println!("invalid direction given");
+                        println!("invalid direction given. accepted: \"forward\", \"up\", \"down\" given: \"{}\"", direction);
                         break;
                     }
                 }
             } else {
-                println!("invalid input given. expecting a direction and a value split by a single white space");
+                println!("invalid input given. expecting a direction and a value split by a single white space. given: {}", ln);
                 break;
             }
         } else {
@@ -67,7 +67,7 @@ fn part_b() -> lib::ResultBoxE<()> {
                 if let Ok(v) = value.parse() {
                     num = v;
                 } else {
-                    println!("failed to parse value to i64");
+                    println!("failed to parse value to i64. given: {}", value);
                     break;
                 }
 
@@ -83,12 +83,12 @@ fn part_b() -> lib::ResultBoxE<()> {
                         aim += num;
                     },
                     _ => {
-                        println!("invalid direction given");
+                        println!("invalid direction given. accepted: \"forward\", \"up\", \"down\" given: \"{}\"", direction);
                         break;
                     }
                 }
             } else {
-                println!("invalid input given. expecting a direction and a value split by a single white space");
+                println!("invalid input given. expecting a direction and a value split by a single white space. given: {}", ln);
                 break;
             }
         } else {
