@@ -197,6 +197,11 @@ fn part_b() -> lib::ResultBoxE<()> {
         }
     }
 
+    if working.is_empty() {
+        println!("no data to work with. was input empty?");
+        return Ok(());
+    }
+
     let oxygen_value = find_value(expected, &working, FindOp::MostCommon)?;
     let co2_value = find_value(expected, &working, FindOp::LeastCommon)?;
 
