@@ -39,7 +39,7 @@ where
     read_file_lines(file_given)
 }
 
-pub fn first_non_zero_duration(duration: Duration) -> String {
+pub fn first_non_zero_duration(duration: &Duration) -> String {
     if duration.as_secs() != 0 {
         format!("{}s", duration.as_secs())
     } else if duration.as_millis() != 0 {
@@ -55,7 +55,7 @@ pub const SECOND: u128 = 1000000000;
 pub const MINUTE: u128 = 60000000000;
 pub const HOUR: u128 = 3600000000000;
 
-pub fn format_duration(duration: Duration) -> String {
+pub fn format_duration(duration: &Duration) -> String {
     let mut rtn = String::new();
     let mut running: u128 = duration.as_nanos();
 
@@ -68,10 +68,17 @@ pub fn format_duration(duration: Duration) -> String {
     rtn.write_fmt(format_args!("{:02}.", running / SECOND)).unwrap();
     running %= SECOND;
 
-    let ns = duration.as_nanos();
-
-    rtn.write_fmt(format_args!("{:09}\n{}\n{}ns", running, first_non_zero_duration(duration), ns)).unwrap();
+    rtn.write_fmt(format_args!("{:09}", running)).unwrap();
     rtn
+}
+
+pub fn print_duration(duration: &Duration) -> () {
+    println!(
+        "time: {}ns\n      {}\n      {}",
+        duration.as_nanos(),
+        first_non_zero_duration(duration),
+        format_duration(duration),
+    );
 }
 
 pub fn get_debug_file<P>(dir: P, name: &str) -> IoResult<File>

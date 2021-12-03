@@ -33,7 +33,7 @@ fn part_a() -> () {
 
     let duration = start.elapsed();
     println!("part a\n{}", increase_count);
-    println!("{}", lib::format_duration(duration));
+    lib::print_duration(&duration);
 }
 
 fn part_b() -> () {
@@ -85,7 +85,7 @@ fn part_b() -> () {
 
     let duration = start.elapsed();
     println!("part b\n{}", window_increase_count);
-    println!("{}", lib::format_duration(duration));
+    lib::print_duration(&duration);
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {

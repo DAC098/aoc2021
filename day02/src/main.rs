@@ -20,15 +20,9 @@ fn part_a() -> lib::ResultBoxE<()> {
                 }
 
                 match direction {
-                    "forward" => {
-                        traveled += num;
-                    },
-                    "up" => {
-                        depth -= num;
-                    },
-                    "down" => {
-                        depth += num;
-                    },
+                    "forward" => traveled += num,
+                    "up" => depth -= num,
+                    "down" => depth += num,
                     _ => {
                         println!("invalid direction given. accepted: \"forward\", \"up\", \"down\" given: \"{}\"", direction);
                         break;
@@ -46,7 +40,7 @@ fn part_a() -> lib::ResultBoxE<()> {
 
     let duration = start.elapsed();
     println!("part a\n{}", depth * traveled);
-    println!("{}", lib::format_duration(duration));
+    lib::print_duration(&duration);
 
     Ok(())
 }
@@ -76,12 +70,8 @@ fn part_b() -> lib::ResultBoxE<()> {
                         traveled += num;
                         depth += aim * num;
                     },
-                    "up" => {
-                        aim -= num;
-                    },
-                    "down" => {
-                        aim += num;
-                    },
+                    "up" => aim -= num,
+                    "down" => aim += num,
                     _ => {
                         println!("invalid direction given. accepted: \"forward\", \"up\", \"down\" given: \"{}\"", direction);
                         break;
@@ -99,7 +89,7 @@ fn part_b() -> lib::ResultBoxE<()> {
 
     let duration = start.elapsed();
     println!("part b\n{}", depth * traveled);
-    println!("{}", lib::format_duration(duration));
+    lib::print_duration(&duration);
 
     Ok(())
 }
