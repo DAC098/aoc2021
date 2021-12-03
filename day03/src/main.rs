@@ -14,7 +14,7 @@ fn part_a() -> lib::ResultBoxE<()> {
         if let Ok(ln) = line {
             for _ in 0..ln.chars().count() {
                 on_count.push(0);
-                off_count.push(0)
+                off_count.push(0);
             }
         }
     }
