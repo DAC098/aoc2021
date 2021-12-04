@@ -1,7 +1,8 @@
-use std::{fmt::{Display, Formatter, Result as FmtResult}, time::Instant};
+use std::{fmt::{Display, Formatter, Result as FmtResult}, time::{Instant, Duration}, collections::HashSet};
 
 type BingoNum = u16;
 
+#[derive(Clone)]
 struct BingoBoard (
     [[(BingoNum, bool); 5]; 5]
 );
@@ -182,23 +183,41 @@ fn part_a() -> lib::Result<()> {
         }
     }
 
+    let mut first_winner: Option<(BingoBoard, BingoNum, Duration)> = None;
+    let mut last_winner: Option<(BingoBoard, BingoNum)> = None;
+    let mut skip_boards: HashSet<usize> = HashSet::new();
+
     // play bingo
     for called_num in number_list {
         for board in 0..boards.len() {
+            if skip_boards.contains(&board) {
+                continue;
+            }
+
             if let Some(_win) = boards[board].set_value(&called_num) {
-                let duration = start.elapsed();
-                println!(
-                    "part a\n{}\n{}", 
-                    boards[board].sum_all_unmarked() * (called_num as u32), 
-                    boards[board]
-                );
-                lib::print_duration(&duration);
-                return Ok(());
+                if first_winner.is_none() {
+                    first_winner = Some((boards[board].clone(), called_num, start.elapsed()));
+                }
+
+                last_winner = Some((boards[board].clone(), called_num));
+                skip_boards.insert(board);
             }
         }
     }
 
-    println!("no winner found?");
+    if let Some(winner) = first_winner {
+        let duration = start.elapsed();
+
+        println!("part a\n{}", winner.0.sum_all_unmarked() * (winner.1 as u32));
+        lib::print_duration(&winner.2);
+
+        let last_winner = last_winner.unwrap();
+
+        println!("part b\n{}", last_winner.0.sum_all_unmarked() * (last_winner.1 as u32));
+        lib::print_duration(&duration);
+    } else {
+        println!("no winner found?");
+    }
 
     Ok(())
 }
