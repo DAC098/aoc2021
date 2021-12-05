@@ -115,7 +115,7 @@ impl Display for BingoBoard {
     }
 }
 
-fn part_a() -> lib::Result<()> {
+fn part_a() -> lib::error::Result<()> {
     let mut input = lib::lines_from_arg_or_default("./day04/input.txt")?;
     
     let mut number_list: Vec<BingoNum> = Vec::new();

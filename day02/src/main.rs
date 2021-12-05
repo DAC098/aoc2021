@@ -1,6 +1,6 @@
 use std::time::Instant;
 
-fn part_a() -> lib::ResultBoxE<()> {
+fn part_a() -> lib::error::Result<()> {
     let input = lib::lines_from_arg_or_default("./day02/input.txt")?;
 
     let mut depth: u64 = 0;
@@ -45,7 +45,7 @@ fn part_a() -> lib::ResultBoxE<()> {
     Ok(())
 }
 
-fn part_b() -> lib::ResultBoxE<()> {
+fn part_b() -> lib::error::Result<()> {
     let input = lib::lines_from_arg_or_default("./day02/input.txt")?;
 
     let mut depth: i64 = 0;

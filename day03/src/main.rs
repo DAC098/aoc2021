@@ -1,8 +1,8 @@
-use std::{time::Instant};
+use std::time::Instant;
 
 const UNICODE_ONE: u8 = 49;
 
-fn part_a() -> lib::ResultBoxE<()> {
+fn part_a() -> lib::error::Result<()> {
     let mut input = lib::lines_from_arg_or_default("./day03/input.txt")?.peekable();
 
     let mut on_count: Vec<u32> = Vec::new();
@@ -163,7 +163,7 @@ fn find_value(column_size: usize, list: &Vec<Vec<u8>>, op: FindOp) -> Result<u64
     }
 }
 
-fn part_b() -> lib::ResultBoxE<()> {
+fn part_b() -> lib::error::Result<()> {
     let mut input = lib::lines_from_arg_or_default("./day03/input.txt")?.peekable();
 
     let mut expected: usize = 0;
