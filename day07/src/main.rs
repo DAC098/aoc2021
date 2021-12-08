@@ -19,8 +19,8 @@ fn calc_const_fuel(subs: &Vec<u16>, position: &u16, lowest: u64) -> u64 {
 }
 
 #[inline]
-fn sum_positive_integers(value: u16) -> u64 {
-    ((value * (value + 1)) / 2) as u64
+fn sum_positive_integers(value: u64) -> u64 {
+    (value * (value + 1)) / 2
 }
 
 fn calc_non_const_fuel(subs: &Vec<u16>, position: &u16, lowest: u64) -> u64 {
@@ -28,9 +28,9 @@ fn calc_non_const_fuel(subs: &Vec<u16>, position: &u16, lowest: u64) -> u64 {
 
     for sub in subs {
         if *sub > *position {
-            running += sum_positive_integers(*sub - *position);
+            running += sum_positive_integers((*sub - *position) as u64);
         } else {
-            running += sum_positive_integers(*position - *sub);
+            running += sum_positive_integers((*position - *sub) as u64);
         }
 
         if running > lowest {

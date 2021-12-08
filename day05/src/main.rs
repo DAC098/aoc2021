@@ -53,7 +53,7 @@ fn parse_line(line: &str) -> lib::error::Result<(Coord, Coord)> {
     Ok((first, second))
 }
 
-fn insert_grid_point(grid: &mut HashMap<u16, HashMap<u16, u16>>, x: &u16, y: &u16) -> bool {
+fn insert_grid_point(grid: &mut HashMap<u16, HashMap<u16, u32>>, x: &u16, y: &u16) -> bool {
     if let Some(y_grid) = grid.get_mut(x) {
         if let Some(count) = y_grid.get_mut(y) {
             *count += 1;
@@ -89,7 +89,7 @@ fn get_x_range(first: &Coord, second: &Coord) -> RangeInclusive<u16> {
 fn part_a() -> lib::error::Result<()> {
     let input = lib::lines_from_arg_or_default("./day05/input.txt")?;
 
-    let mut known_grid: HashMap<u16, HashMap<u16, u16>> = HashMap::new();
+    let mut known_grid: HashMap<u16, HashMap<u16, u32>> = HashMap::new();
     let mut intersecting: u64 = 0;
 
     let start = Instant::now();
